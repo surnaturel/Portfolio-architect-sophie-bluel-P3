@@ -24,7 +24,6 @@ function afficheProjets(monProjets){
         elementProjet.appendChild(elementImage)
         elementProjet.appendChild(elementTitre)
 
-        console.log(projet)
     });
 
 }
@@ -33,12 +32,17 @@ function afficheProjets(monProjets){
 afficheProjets(monProjets)
 
 function filtreBar(){
-    let tousBtn = document.getElementById('tous')
+   /* let tousBtn = document.getElementById('tous')
     let objetBtn = document.getElementById('objets')
     let appartementBtn = document.getElementById('appartement')
-    let hotelRestaurantBtn = document.getElementById('hotelRestauration')
+    let hotelRestaurantBtn = document.getElementById('hotelRestauration')*/
     let buttonBtns = document.querySelectorAll("#portfolio .filtreBar button")
-
+    buttonBtns.forEach(bouton => {
+        bouton.addEventListener('click', function(event) {
+            let id = event.target.id
+            console.log(monProjets)
+        })
+    });
     
     console.log(buttonBtns)
 
