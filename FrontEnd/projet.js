@@ -40,7 +40,11 @@ function filtreBar(){
     buttonBtns.forEach(bouton => {
         bouton.addEventListener('click', function(event) {
             let id = event.target.id
+            let listeProjet = monProjets.map(listeP  => listeP.category.name)
+            
             console.log(monProjets)
+            console.log(id)
+            console.log(listeProjet)
         })
     });
     
