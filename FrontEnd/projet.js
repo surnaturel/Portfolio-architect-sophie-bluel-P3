@@ -1,5 +1,5 @@
 let monProjets = window.localStorage.getItem('monProjets');
-
+let mesBoutons = window.localStorage.getItem('mesBoutons')
 
 if(monProjets === null){
     let reponse = await fetch('http://localhost:5678/api/works')
@@ -11,9 +11,24 @@ if(monProjets === null){
     monProjets = JSON.parse(monProjets)
 }
 
+
+if(mesBoutons === null){
+    let reponseBtn = await fetch('http://localhost:5678/api/categories')
+    mesBoutons = await reponseBtn.json()
+    let valeurButons = JSON.stringify(mesBoutons);
+    window.localStorage.setItem("mesBoutons", valeurButons);
+
+}else{
+    mesBoutons = JSON.parse(mesBoutons)
+}
+
+console.log(mesBoutons)
+
 function afficheProjets(monProjets){
+    let gallery  = document.querySelector('.gallery')
+    gallery.innerHTML = " "
     monProjets.forEach(projet => {
-        let gallery  = document.querySelector('.gallery')
+
         let elementProjet = document.createElement('figure')
         let elementImage = document.createElement('img')
         elementImage.src = projet.imageUrl
@@ -27,29 +42,38 @@ function afficheProjets(monProjets){
     });
 
 }
-
-
 afficheProjets(monProjets)
+function afficheBoutons(mesBoutons){
+    let boutonFiltre = document.querySelector('.filtreBar')
+    mesBoutons.forEach(btnFiltre  => {
+        let btn = document.createElement('button')
+        btn.id = btnFiltre.name
+        btn.innerText = btnFiltre.name
+        btn.type = 'submit'
+        btn.style.cursor = 'pointer'
+        boutonFiltre.appendChild(btn)
+    })
+
+}
+afficheBoutons(mesBoutons)
 
 function filtreBar(){
-   /* let tousBtn = document.getElementById('tous')
-    let objetBtn = document.getElementById('objets')
-    let appartementBtn = document.getElementById('appartement')
-    let hotelRestaurantBtn = document.getElementById('hotelRestauration')*/
     let buttonBtns = document.querySelectorAll("#portfolio .filtreBar button")
     buttonBtns.forEach(bouton => {
         bouton.addEventListener('click', function(event) {
             let id = event.target.id
-            let listeProjet = monProjets.map(listeP  => listeP.category.name)
-            
-            console.log(monProjets)
-            console.log(id)
-            console.log(listeProjet)
+            if(id === 'Tous'){
+                afficheProjets(monProjets)
+                console.log(monProjets)
+            }else{
+                let listeProjet = monProjets.filter(listeP  => listeP.category.name === id)
+                afficheProjets(listeProjet)
+                console.log(listeProjet)
+                console.log(id)
+            }
         })
     });
     
-    console.log(buttonBtns)
-
 }
 
 filtreBar()

@@ -110,107 +110,58 @@ nav li a:hover{
 	display: flex;
 	align-items: center;
 }
-#introduction figure {
-	flex: 1
-}
-#introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
-}
-
-#introduction article {
-	flex: 1
-}
-#introduction h2 {
-	margin-bottom: 1em;
-}
-
-#introduction p {
-	margin-bottom: 0.5em;
-}
-#portfolio{
-}
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
-.filtreBar{
-	width: 45%;
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	margin: 0 auto;
-}
-.filtreBar button{
-	font-family: 'Syne';
-	font-weight: 700;
-	color: #1D6154;
-	margin : 2em auto ;
-	text-align: center;
-	border-radius: 60px ;
-	border: 1px solid #1D6154;
-	background-color:white;
-	padding: 10px 12px;
-}
-.gallery {
+main{
 	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	height: 70vh;
 }
-
-.gallery img {
-	width: 100%;
-
+#login{
+    width: 50%;
+    gap: 30px;
+    text-align: center;
+    margin: 50px auto;
 }
-#contact {
-	width: 50%;
-margin: auto;
-}
-#contact > * {
-	text-align: center;
-
-}
-#contact h2{
-	margin-bottom: 20px;
-}
-#contact form {
+#formulaire{
+	width: 70%;
+	margin: 30px auto;
 	text-align: left;
-	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
-	height: 50px;
+#formulaire input{
+	height: 40px;
+	padding: 3px 25px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-#contact label {
-	margin: 2em 0 1em 0;
-}
-#contact textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-bottom: 10px;
 }
 
-input[type="submit"]{
+#formulaire label {
+	margin: 1em 0 1em 0;
+}
+#formulaire input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
-	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
 }
-
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
+#formulaire p{
+	text-align: center;
+	color: #e70a0a;
 }
-
+#formulaire a{
+	display: block;
+	text-align: center;
+	color: #3D3D3D;
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0em;
+	
+;
+}
