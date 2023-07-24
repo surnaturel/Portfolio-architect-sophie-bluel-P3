@@ -118,7 +118,12 @@ nav li a:hover{
 	margin: auto;
 	width: 80%;
 }
-
+#introduction figure {
+}
+#introduction .modif{
+	width: 80%;
+	margin: 10px auto;
+}
 #introduction article {
 	flex: 1
 }
@@ -129,11 +134,17 @@ nav li a:hover{
 #introduction p {
 	margin-bottom: 0.5em;
 }
-#portfolio{
+#portfolio article{
+	width: 45%;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	gap: 12px;
+	margin: 1em auto;
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
 .filtreBar{
 	width: 45%;
@@ -214,3 +225,47 @@ footer nav ul {
 	margin: 2em
 }
 
+#modale{
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	border: 2px solid red;
+}
+#modale h1
+#galery-modal{
+	width: 80%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+
+}
+/* Styles pour la ligne verticale */
+/* Styles pour la ligne horizontale */
+.horizontal-line {
+	width: 80%; /* Définir la largeur de la ligne sur 100% de la largeur du conteneur */
+	height: 2px; /* Définir la hauteur de la ligne */
+	background-color: #B3B3B3	; /* Couleur de la ligne */
+  }
+#galery-modal img{
+	width: 90%;
+}
+.ajoutSuprim{
+	display: flex;
+	flex-direction: column;
+
+}
+.ajoutSuprim button{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	margin : 2em auto ;
+	text-align: center;
+	border-radius: 60px ;
+	border: 1px solid #1D6154;
+	background-color:#1D6154;
+	padding: 10px 12px;
+}

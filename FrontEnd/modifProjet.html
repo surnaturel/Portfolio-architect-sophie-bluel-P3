@@ -10,7 +10,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/css/style.css">
-	<script type="module" src="./assets/js/index.js"></script>
+	<script type="module" src="./assets/js/modifProjet.js"></script>
 </head>
 <body>
 <header>
@@ -28,6 +28,10 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<div class="modif">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<a href="">Modifier</a>
+			</div>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -36,16 +40,14 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
-	<div class="modif">
-		<i class="fa-regular fa-pen-to-square"></i>
-		<p>modification</p>
-	</div>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<div class="filtreBar modif">
-			<i class="fa-regular fa-pen-to-square"></i>
-			<p>modification</p>
-		</div>
+		<article>
+			<h2>Mes Projets</h2>
+			<div class=" modif">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<a href="" id="modifGalery">Modifier</a>
+			</div>
+		</article>
 		<div class="gallery">
 			<!--affichage de tous les projets -->
 		</div>
@@ -72,5 +74,17 @@
 		</ul>
 	</nav>
 </footer>
+
+<div class="modal-content" id="modale">
+	<h1>Galerie Photo</h1>
+	<section id="galery-modal">
+		<!--affichage de tous les projets modale -->
+	</section>
+	<div class="horizontal-line"></div> <!-- Ligne horizontale -->
+	<div class="ajoutSuprim">
+		<button>AJouter une Photo</button>
+		<a href="">Suprimer la Galerie</a>
+	</div>
+</div>
 </body>
 </html>
