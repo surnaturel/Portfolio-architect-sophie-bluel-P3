@@ -49,26 +49,38 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
+	height: 100%;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	position: relative;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
+main{ 
+}
+body::before  {
+	content: ""; /* Ajouter du contenu vide */
+	position: absolute; /* Définir une position absolue pour positionner le contenu ::before */
+	top: 0; /* Positionner le contenu ::before en haut de l'élément .horizontal-line */
+	left: 0; /* Positionner le contenu ::before à gauche de l'élément .horizontal-line */
+	width: 100%; /* Définir la largeur du dégradé */
+	height: 100%;/* Définir la hauteur du dégradé */
+	background-color: rgba(0, 0, 0, 0.4);
+  }
 section {
-	margin: 50px 0
+	margin: 50px 0;
 }
-
 h1{
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
 }
 
 h1 > span {
@@ -226,22 +238,36 @@ footer nav ul {
 }
 
 #modale{
+	position: absolute;
+	top: 25%;
+	transform: translate(30%, -40%);
 	width: 60%;
-	display: flex;
+	display: none;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 30px;
 	border: 2px solid red;
+	z-index: 1;
+	background-color: white;
 }
-#modale h1
+#modale h1{
+	border: 2px solid blue;
+	margin-top: 3em;
+	font-family: Work Sans;
+	font-size: 26px;
+	font-weight: 400;
+	line-height: 30px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #000000;
+}
 #galery-modal{
 	width: 80%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-column-gap: 10px;
 	grid-row-gap: 10px;
-
 }
 /* Styles pour la ligne verticale */
 /* Styles pour la ligne horizontale */
