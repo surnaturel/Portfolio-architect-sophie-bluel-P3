@@ -38,6 +38,7 @@ modifGalery.addEventListener('click', function(event) {
     console.log(monProjets)
     let modal = document.getElementById('galery-modal')
     let modale = document.getElementById('modale')
+    let body = document.getElementsByName('body')
     modale.style.display = 'flex'
     modal.innerHTML = " "
     monProjets.forEach(projet => {
