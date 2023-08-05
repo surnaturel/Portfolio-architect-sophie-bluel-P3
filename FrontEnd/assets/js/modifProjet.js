@@ -32,8 +32,10 @@ function afficheProjets(monProjets){
 
 afficheProjets(monProjets)
 
-let modifGalery = document.getElementById('modifGalery')
-modifGalery.addEventListener('click', function(event) {
+
+function affichageModal(){
+    let modifGalery = document.getElementById('modifGalery')
+    modifGalery.addEventListener('click', function(event) {
     event.preventDefault()
     console.log(monProjets)
     let modal = document.getElementById('galery-modal')
@@ -54,5 +56,5 @@ modifGalery.addEventListener('click', function(event) {
         elementModal.appendChild(modifTitre)
 
     });
-
 })
+}

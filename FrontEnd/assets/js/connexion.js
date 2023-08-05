@@ -1,14 +1,14 @@
+import { affichageModal } from 'index.js' ;
+
+
 const form = document.getElementById("formulaire");
 const errorMessage = document.getElementById("err");
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
     
-    const formData = new FormData(form);
-    let email = formData.get('email'); // Récupérer la valeur de l'email
-    let motDePasse = formData.get('motPasse');
-    console.log(email)
-    console.log(formData)
+    const email = form.email.value;
+    const motDePasse = form.motPasse.value;
     let data = {
         email: email,
         password: motDePasse
@@ -23,7 +23,19 @@ form.addEventListener("submit", async (event) => {
 
         if (response.ok) {
             // La requête a réussi, rediriger vers la page de succès ou faire autre chose
-            window.location.href = 'modifProjet.html'
+            console.log(response.ok)
+            console.log(response)
+            const responseData = await response.json();
+            const token = responseData.token;
+            // Stocker le token dans le local storage
+            if(token){
+                window.localStorage.setItem("tokenLogin", token);
+                console.log("Token récupéré :", token);
+                affichageModal()
+            }
+            
+            
+            
         } else {
             // La requête a échoué, afficher un message d'erreur
             errorMessage.textContent = "Erreur dans l'identifiant ou le mot de passe";

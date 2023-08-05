@@ -77,3 +77,31 @@ function filtreBar(){
 }
 
 filtreBar()
+
+
+
+function affichageModal(){
+    let modifGalery = document.getElementById('modifGalery')
+    modifGalery.addEventListener('click', function(event) {
+        event.preventDefault()
+        console.log(monProjets)
+        let modal = document.getElementById('galery-modal')
+        let modale = document.getElementById('modale')
+        let body = document.getElementsByName('body')
+        modale.style.display = 'flex'
+        modal.innerHTML = " "
+        monProjets.forEach(projet => {
+
+            let elementModal = document.createElement('figure')
+            let modalImage = document.createElement('img')
+            modalImage.src = projet.imageUrl
+            let modifTitre = document.createElement('a')
+            modifTitre.innerText = 'editer'
+
+            modal.appendChild(elementModal)
+            elementModal.appendChild(modalImage)
+            elementModal.appendChild(modifTitre)
+
+        });
+    })
+}
