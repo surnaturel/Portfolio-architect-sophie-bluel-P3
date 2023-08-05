@@ -105,3 +105,19 @@ function affichageModal(){
         });
     })
 }
+
+function afficheBoutonsModif(){
+    let btnModif = document.createElement('div')
+    btnModif.id = 'modif'
+    let btnIcnone = document.createElement('i')
+    btnIcnone.className = 'fa-regular fa-pen-to-square'
+    let btnLien = document.createElement('a')
+    btnLien.innerText = 'Modifier'
+
+    const sectionIntroduction = document.getElementById('introduction');
+    const figureElement = sectionIntroduction.querySelector('figure');
+
+    figureElement.appendChild(btnModif)
+    btnModif.appendChild(btnIcnone)
+    btnModif.appendChild(btnLien)
+}

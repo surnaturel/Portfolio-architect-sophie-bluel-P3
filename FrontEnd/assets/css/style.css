@@ -312,3 +312,7 @@ footer nav ul {
 .ajoutSuprim a{
 	margin-bottom: 30px;
 }
+
+#modif{
+	display:  none;
+}
