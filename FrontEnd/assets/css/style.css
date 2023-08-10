@@ -65,11 +65,13 @@ header {
 	justify-content: space-between;
 	margin: 50px 0;
 }
+.modif{
+	cursor: pointer;
+}
 .modif i{ 
 	margin-right: 8px;
 }
-
-body::before  {
+.open-overlay::before  {
 	content: ""; 
 	position: absolute; 
 	top: 0; 
@@ -156,6 +158,9 @@ nav li a:hover{
 #introduction p {
 	margin-bottom: 0.5em;
 }
+#portfolio{
+	
+}
 #portfolio article{
 	width: 45%;
 	display: flex;
@@ -164,7 +169,7 @@ nav li a:hover{
 	align-items: center;
 	gap: 30px;
 	margin: 1em auto;
-
+	border: 2px solid red;
 }
 #portfolio h2 {
 	text-align: center;
@@ -311,8 +316,4 @@ footer nav ul {
 }
 .ajoutSuprim a{
 	margin-bottom: 30px;
-}
-
-#modif{
-	display:  none;
 }
