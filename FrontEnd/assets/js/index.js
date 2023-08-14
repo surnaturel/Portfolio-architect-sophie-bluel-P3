@@ -2,17 +2,8 @@
 document.addEventListener("DOMContentLoaded", async function() {
     const isConnected = window.localStorage.getItem("isConnected");
     console.log(isConnected)
-    if (isConnected === "true") {
-        //afficheBoutonsModif();
-        // Faites d'autres actions nécessaires pour l'utilisateur connecté
-        afficheBoutonsModif1()
-        afficheBoutonsModif2()
-    }
-
-    // Reste du code pour index.html...
     let monProjets = window.localStorage.getItem('monProjets');
-    let mesBoutons = window.localStorage.getItem('mesBoutons')
-
+    let mesBoutons = window.localStorage.getItem('mesBoutons');
     if(monProjets === null){
         let reponse = await fetch('http://localhost:5678/api/works')
         monProjets = await reponse.json()
@@ -34,6 +25,49 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
     console.log(mesBoutons)
+    if (isConnected == "true") {
+        //afficheBoutonsModif();
+        // Faites d'autres actions nécessaires pour l'utilisateur connecté
+        afficheBoutonsModif1()
+        afficheBoutonsModif2()
+        afficheProjets(monProjets)
+        let modifGalery = document.getElementById('modifGalery')
+        modifGalery.addEventListener('click', function(event) {
+            event.preventDefault()
+            console.log(monProjets)
+            let galeryModal = document.getElementById('galery-modal')
+            let modale = document.getElementById('modale')
+            console.log(modale)
+            const bodyBeforeElement = document.createElement('div');
+    
+            // JavaScript
+            document.addEventListener("DOMContentLoaded", function() {
+                const openButton = document.getElementById('openButton'); // Remplacez 'openButton' par l'ID de votre bouton
+    
+                openButton.addEventListener('click', function() {
+                    document.body.classList.add('open-overlay');
+                });
+            });
+    
+            modale.style.display = 'flex'
+            galeryModal.innerHTML = " "
+            monProjets.forEach(projet => {
+                let elementModal = document.createElement('figure')
+                let modalImage = document.createElement('img')
+                modalImage.src = projet.imageUrl
+                let modifTitre = document.createElement('a')
+                modifTitre.innerText = 'editer'
+    
+                galeryModal.appendChild(elementModal)
+                elementModal.appendChild(modalImage)
+                elementModal.appendChild(modifTitre)
+    
+            });
+        })
+        
+        
+    }
+    // Reste du code pour index.html...
     function afficheProjets(monProjets){
         let gallery  = document.querySelector('.gallery')
         console.log(gallery)
@@ -132,38 +166,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
     function affichageModal(){
-        let modifGalery = document.getElementById('modifGalery')
-        modifGalery.addEventListener('click', function(event) {
-            event.preventDefault()
-            console.log(monProjets)
-            let modal = document.getElementById('galery-modal')
-            let modale = document.getElementById('modale')
-            const bodyBeforeElement = document.createElement('div');
-    
-            // JavaScript
-            document.addEventListener("DOMContentLoaded", function() {
-                const openButton = document.getElementById('openButton'); // Remplacez 'openButton' par l'ID de votre bouton
-    
-                openButton.addEventListener('click', function() {
-                    document.body.classList.add('open-overlay');
-                });
-            });
-    
-            modale.style.display = 'flex'
-            modal.innerHTML = " "
-            monProjets.forEach(projet => {
-                let elementModal = document.createElement('figure')
-                let modalImage = document.createElement('img')
-                modalImage.src = projet.imageUrl
-                let modifTitre = document.createElement('a')
-                modifTitre.innerText = 'editer'
-    
-                modal.appendChild(elementModal)
-                elementModal.appendChild(modalImage)
-                elementModal.appendChild(modifTitre)
-    
-            });
-        })
+        
     }
     affichageModal()
 
