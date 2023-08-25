@@ -31,46 +31,15 @@ document.addEventListener("DOMContentLoaded", async function() {
         afficheBoutonsModif1()
         afficheBoutonsModif2()
         afficheProjets(monProjets)
-        let modifGalery = document.getElementById('modifGalery')
-        modifGalery.addEventListener('click', function(event) {
-            event.preventDefault()
-            console.log(monProjets)
-            let galeryModal = document.getElementById('galery-modal')
-            let modale = document.getElementById('modale')
-            console.log(modale)
-            const bodyBeforeElement = document.createElement('div');
-    
-            // JavaScript
-            document.addEventListener("DOMContentLoaded", function() {
-                const openButton = document.getElementById('openButton'); // Remplacez 'openButton' par l'ID de votre bouton
-    
-                openButton.addEventListener('click', function() {
-                    document.body.classList.add('open-overlay');
-                });
-            });
-    
-            modale.style.display = 'flex'
-            galeryModal.innerHTML = " "
-            monProjets.forEach(projet => {
-                let elementModal = document.createElement('figure')
-                let modalImage = document.createElement('img')
-                modalImage.src = projet.imageUrl
-                let modifTitre = document.createElement('a')
-                modifTitre.innerText = 'editer'
-    
-                galeryModal.appendChild(elementModal)
-                elementModal.appendChild(modalImage)
-                elementModal.appendChild(modifTitre)
-    
-            });
-        })
-        
+        let acceuil  = document.querySelector('.acceuil')
+        acceuil.addEventListener('click', function(){
+            localStorage.removeItem("isConnected");
+        }) 
         
     }
     // Reste du code pour index.html...
     function afficheProjets(monProjets){
         let gallery  = document.querySelector('.gallery')
-        console.log(gallery)
         gallery.innerHTML = " "
         monProjets.forEach(projet => {
 
@@ -133,7 +102,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         btnIcnone.classList.add("fa-regular", "fa-pen-to-square");
         var btnLien = document.createElement('a')
         btnLien.innerText = 'Modifier'
-        console.log('je suis dans la function')
     
         const sectionIntroduction = document.getElementById('introduction');
         const figureElement = sectionIntroduction.querySelector('figure');
@@ -141,7 +109,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         figureElement.appendChild(btnModif1)
         btnModif1.appendChild(btnIcnone)
         btnModif1.appendChild(btnLien)
-        console.log(btnModif1)
     }
 
     function afficheBoutonsModif2(){
@@ -154,8 +121,8 @@ document.addEventListener("DOMContentLoaded", async function() {
         btnIcnone.classList.add("fa-regular", "fa-pen-to-square");
         var btnLien = document.createElement('a')
         btnLien.innerText = 'Modifier'
-        btnIcnone.style.id = 'modifGalery'
-        console.log('je suis dans la function')
+        //btnIcnone.classList.add("modifGalery")
+        btnLien.classList.add("modifGalery")
         
         const sectionportfolio = document.getElementById('portfolio');
         const aticleElement = sectionportfolio.querySelector('article');
@@ -166,8 +133,38 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
     function affichageModal(){
+        let modifGalery = document.querySelector('.modifGalery');
+        modifGalery.addEventListener('click', function(event) {
+            event.preventDefault()
+            let galeryModal = document.getElementById('galery-modal')
+            //let modale = document.getElementById('modale')
+            //console.log(modale)    
+            modale.style.display = 'flex'
+            galeryModal.innerHTML = " "
+            monProjets.forEach(projet => {
+                let elementModal = document.createElement('figure')
+                let modalImage = document.createElement('img')
+                modalImage.src = projet.imageUrl
+                let modifTitre = document.createElement('a')
+                modifTitre.innerText = 'editer'
+    
+                galeryModal.appendChild(elementModal)
+                elementModal.appendChild(modalImage)
+                elementModal.appendChild(modifTitre)
+    
+            });
+        })
         
     }
     affichageModal()
+
+    function fermerModal(){
+        let fermerModal = document.getElementById('fermerModal')
+        fermerModal.addEventListener('click', function(){
+            
+        })
+    }
+    fermerModal()
+
 
 });

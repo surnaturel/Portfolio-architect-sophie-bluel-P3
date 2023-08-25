@@ -61,19 +61,28 @@
 				<input type="submit" value="Envoyer">
 			</form>
 		</section>
-		<div class="modal-content" id="modale">
-			<i class="fa-solid fa-xmark"></i>
-			<h1>Galerie Photo</h1>
-			<section id="galery-modal">
-				<!--affichage de tous les projets modale -->
-			</section>
-			<div class="horizontal-line"></div> <!-- Ligne horizontale -->
-			<div class="ajoutSuprim">
-				<button>AJouter une Photo</button>
-				<a href="">Suprimer la Galerie</a>
+		<aside class="modal" id="modale" aria-hidden="true" role="dialog" aria-modal="false">
+			<div class="modal-wrapper">
+				<i class="fa-solid fa-xmark" id="fermerModal"></i>
+				<h1>Galerie Photo</h1>
+				<section id="galery-modal">
+					<!--affichage de tous les projets modale -->
+				</section>
+				<div class="horizontal-line"></div> <!-- Ligne horizontale -->
+				<div class="ajoutSuprim">
+					<button>AJouter une Photo</button>
+					<a href="">Suprimer la Galerie</a>
+				</div>
 			</div>
-		</div>
+		</aside>
 	</main>
+	<div class="boite_modif">
+		<div class="modif">
+			<i class="fa-regular fa-pen-to-square"></i>
+			<a href="">mode edition</a>
+		</div>
+		<button>publier les changements</button>
+	</div>
 
 	<footer>
 		<nav>
