@@ -1,7 +1,6 @@
 //import { afficheBoutonsModif } from "./index.js";
 document.addEventListener("DOMContentLoaded", async function() {
     const isConnected = window.localStorage.getItem("isConnected");
-    console.log(isConnected)
     let monProjets = window.localStorage.getItem('monProjets');
     let mesBoutons = window.localStorage.getItem('mesBoutons');
     if(monProjets === null){
@@ -143,17 +142,26 @@ document.addEventListener("DOMContentLoaded", async function() {
             galeryModal.innerHTML = " "
             monProjets.forEach(projet => {
                 let elementModal = document.createElement('figure')
+                elementModal.classList.add('elementModal');
                 let modalImage = document.createElement('img')
                 modalImage.src = projet.imageUrl
+                modalImage.classList.add('modalImage');
                 let modifTitre = document.createElement('a')
                 modifTitre.innerText = 'editer'
-    
+                let iconImg = document.createElement('i');
+                iconImg.classList.add('fa-regular', 'fa-trash-can', 'iconImg');
+                
+                
                 galeryModal.appendChild(elementModal)
                 elementModal.appendChild(modalImage)
                 elementModal.appendChild(modifTitre)
+
+                elementModal.appendChild(iconImg);
     
             });
+            suprimer_photo()
         })
+        fermerModal() 
         
     }
     affichageModal()
@@ -161,10 +169,59 @@ document.addEventListener("DOMContentLoaded", async function() {
     function fermerModal(){
         let fermerModal = document.getElementById('fermerModal')
         fermerModal.addEventListener('click', function(){
-            
+            modale.style.display = 'none'
         })
     }
-    fermerModal()
 
+    function suprimer_photo(){
+        let iconesSupprimer = document.querySelectorAll('.iconImg');
+        console.log(iconesSupprimer)
+        iconesSupprimer.forEach((icone) => {
+            console.log(icone)
+            icone.addEventListener('click', function(event) {
+                let bouton = event.target;
+                console.log(bouton);
+                const figureParent = bouton.closest('figure');
+                if (figureParent) {
+                    //figureParent.remove();
+                    console.log(figureParent)
+                }
+            });
+        });
+    }
+    
+    
+/*
+async function suprimer_photo() {
+    let iconesSupprimer = document.querySelectorAll('.iconImg');
 
+    iconesSupprimer.forEach((icone) => {
+        icone.addEventListener('click', async function(event) {
+            let bouton = event.target;
+            const figureParent = bouton.closest('figure');
+
+            if (figureParent) {
+                const projectId = figureParent.dataset.projectId; // Ajoutez une data attribute pour stocker l'ID du projet
+                try {
+                    const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        // Suppression côté serveur réussie
+                        figureParent.remove();
+                        // Vous pouvez également mettre à jour votre liste de projets en actualisant monProjets
+                    } else {
+                        console.error('Échec de la suppression côté serveur');
+                    }
+                } catch (error) {
+                    console.error('Une erreur s\'est produite lors de la suppression :', error);
+                }
+            }
+        });
+    });
+}
+
+suprimer_photo();
+*/
 });

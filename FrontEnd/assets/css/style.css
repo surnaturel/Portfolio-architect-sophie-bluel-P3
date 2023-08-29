@@ -54,6 +54,10 @@ a{
 	color: black;
 }
 body {
+	max-width: 1140px;
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
 }
 header {
 	display: flex;
@@ -282,6 +286,7 @@ footer nav ul {
 	position: absolute;
 	top: 10px;
 	right: 10px;
+	cursor: pointer;
 }
 .modal-wrapper h1{
 	margin-top: .6em;
@@ -297,7 +302,7 @@ footer nav ul {
 	width: 70%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-column-gap: 1px;
+	grid-column-gap: 7px;
 	grid-row-gap: 10px;
 	margin: 20px 0;
 }
@@ -306,9 +311,27 @@ footer nav ul {
 	height: 2px; /* Définir la hauteur de la ligne */
 	background-color: #B3B3B3	; /* Couleur de la ligne */
   }
-#galery-modal img{
-	width: 80%;
+#galery-modal  .elementModal{
+	border: 2px solid red;
+	position: relative;
 }
+#galery-modal img{
+	width: 100%;
+}
+#galery-modal a{
+	color: #000000;
+}
+
+#galery-modal .elementModal .iconImg{
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	color: white;
+	background-color: black;
+	font-size: 11px;
+	padding: 2px;
+}
+
 .ajoutSuprim{
 	display: flex;
 	flex-direction: column;
