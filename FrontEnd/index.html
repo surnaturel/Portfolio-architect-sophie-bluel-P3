@@ -62,7 +62,7 @@
 			</form>
 		</section>
 		<aside class="modal" id="modale" aria-hidden="true" role="dialog" aria-modal="false">
-			<div class="modal-wrapper">
+			<div class="modal-common modal-wrapper">
 				<i class="fa-solid fa-xmark" id="fermerModal"></i>
 				<h1>Galerie Photo</h1>
 				<section id="galery-modal">
@@ -70,9 +70,33 @@
 				</section>
 				<div class="horizontal-line"></div> <!-- Ligne horizontale -->
 				<div class="ajoutSuprim">
-					<button>AJouter une Photo</button>
+					<button>Ajouter une Photo</button>
 					<a href="">Suprimer la Galerie</a>
 				</div>
+			</div>
+			<div class="modal-common modalAjoutPhoto" id="ajoutPhoto">
+				<div class="icons">
+					<i class="fa-solid fa-arrow-left" id="revenirModal"></i>
+					<i class="fa-solid fa-xmark" id="fermerModal"></i>
+				</div>
+				<h1>Galerie Photo</h1>
+				<form action="" id="photoImage">
+					<div class="contenue-photo">
+						<figure>
+							<img src="./assets/images/téléchargement.png" alt="image pour ajout">
+						</figure>
+						<button> + Ajouter Photo</button>
+						<p>image 40 mo max</p>
+					</div>
+					<label for="titre">Titre</label>
+					<input type="text" name="titre" id="titre">
+					<label for="categorie">Categorie</label>
+					<select name="categorie" id="categorie">
+						<!--affichage les categories -->
+					</select>
+					<div class="horizontal-line"></div> <!-- Ligne horizontale -->
+					<button>valider</button>
+				</form>
 			</div>
 		</aside>
 	</main>

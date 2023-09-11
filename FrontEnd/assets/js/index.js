@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 elementModal.appendChild(iconImg);
     
             });
-            suprimer_photo()
+            //suprimer_photo()
         })
         fermerModal() 
         
