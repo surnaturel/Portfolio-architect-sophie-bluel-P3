@@ -1,6 +1,7 @@
 //import { afficheBoutonsModif } from "./index.js";
 document.addEventListener("DOMContentLoaded", async function() {
     const isConnected = window.localStorage.getItem("isConnected");
+    const token = window.localStorage.getItem("tokenLogin")
     let monProjets = window.localStorage.getItem('monProjets');
     let mesBoutons = window.localStorage.getItem('mesBoutons');
     if(monProjets === null){
@@ -8,9 +9,11 @@ document.addEventListener("DOMContentLoaded", async function() {
         monProjets = await reponse.json()
         let valeurProjets = JSON.stringify(monProjets);
         window.localStorage.setItem("monProjets", valeurProjets);
+        console.log(monProjets.length)
 
     }else{
         monProjets = JSON.parse(monProjets)
+        console.log(monProjets.length)
     }
 
     if(mesBoutons === null){
@@ -23,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         mesBoutons = JSON.parse(mesBoutons)
     }
 
-    console.log(mesBoutons)
+    //console.log(mesBoutons)
     if (isConnected == "true") {
         //afficheBoutonsModif();
         // Faites d'autres actions nécessaires pour l'utilisateur connecté
@@ -53,6 +56,8 @@ document.addEventListener("DOMContentLoaded", async function() {
             elementProjet.appendChild(elementTitre)
 
         });
+
+        console.log('le nombre apres la supression ' + monProjets.length)
 
     }
     afficheProjets(monProjets)
@@ -143,6 +148,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             monProjets.forEach(projet => {
                 let elementModal = document.createElement('figure')
                 elementModal.classList.add('elementModal');
+                elementModal.setAttribute('data-project-id', projet.id);
                 let modalImage = document.createElement('img')
                 modalImage.src = projet.imageUrl
                 modalImage.classList.add('modalImage');
@@ -173,25 +179,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         })
     }
 
-    function suprimer_photo(){
-        let iconesSupprimer = document.querySelectorAll('.iconImg');
-        console.log(iconesSupprimer)
-        iconesSupprimer.forEach((icone) => {
-            console.log(icone)
-            icone.addEventListener('click', function(event) {
-                let bouton = event.target;
-                console.log(bouton);
-                const figureParent = bouton.closest('figure');
-                if (figureParent) {
-                    //figureParent.remove();
-                    console.log(figureParent)
-                }
-            });
-        });
-    }
-    
-    
-/*
 async function suprimer_photo() {
     let iconesSupprimer = document.querySelectorAll('.iconImg');
 
@@ -201,21 +188,33 @@ async function suprimer_photo() {
             const figureParent = bouton.closest('figure');
 
             if (figureParent) {
-                const projectId = figureParent.dataset.projectId; // Ajoutez une data attribute pour stocker l'ID du projet
-                try {
-                    const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
-                        method: 'DELETE',
-                    });
+                const configDelete = confirm("Êtes-vous sûr de vouloir supprimer cette photo ?"); // Demande une confirmation
+                if(configDelete){
+                    const projectId = figureParent.dataset.projectId; // Ajoutez une data attribute pour stocker l'ID du projet
+                    try {
+                        const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
 
-                    if (response.ok) {
-                        // Suppression côté serveur réussie
-                        figureParent.remove();
-                        // Vous pouvez également mettre à jour votre liste de projets en actualisant monProjets
-                    } else {
-                        console.error('Échec de la suppression côté serveur');
+                        if (response.ok) {
+                            console.log(token)
+                            // Suppression côté serveur réussie
+                            figureParent.remove();
+                            // Vous pouvez également mettre à jour votre liste de projets en actualisant monProjets
+                            const modifResponse = await fetch('http://localhost:5678/api/works');
+                            monProjets = await modifResponse.json();
+                            let modifProjets = JSON.stringify(monProjets);
+                            window.localStorage.setItem("monProjets", modifProjets);
+                            afficheProjets(monProjets);
+                        } else {
+                            console.error('Échec de la suppression côté serveur');
+                        }
+                    } catch (error) {
+                        console.error('Une erreur s\'est produite lors de la suppression :', error);
                     }
-                } catch (error) {
-                    console.error('Une erreur s\'est produite lors de la suppression :', error);
                 }
             }
         });
@@ -223,5 +222,4 @@ async function suprimer_photo() {
 }
 
 suprimer_photo();
-*/
 });
