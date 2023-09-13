@@ -323,8 +323,17 @@ footer nav ul {
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	gap: 2px;
+	gap: 5px;
 	background: #E8F1F6;
+	padding: 12px;
+}
+.modalAjoutPhoto .contenue-photo figure{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.modalAjoutPhoto .contenue-photo figure img{
+	width: 50%;
 }
 .modalAjoutPhoto .contenue-photo button{
 	font-family: Work Sans;
@@ -338,17 +347,40 @@ footer nav ul {
 	padding: 10px 22px;
 	color:  #306685;
 }
+.modalAjoutPhoto .contenue-photo p{
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0em;
+}
 #photoImage label{
 	margin: .8em 0;
 }
 #photoImage input, select{
 	width: 100%;
-	height: 40px;
-	
+	height: 40px;	
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	margin-bottom: 10px;
+}
+#photoImage .horizontal-line{
+	width: 100%;
+}
+#photoImage button{
+	width: 237px;
+	height: 36px;
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: center;
+	border-radius: 60px ;
+	background-color:#A7A7A7;
+	padding: 10px 22px;
+	color:  white;
+	margin: auto;
 }
 #galery-modal{
 	width: 70%;
