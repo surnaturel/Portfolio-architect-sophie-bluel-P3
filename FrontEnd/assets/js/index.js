@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         afficheBoutonsModif1()
         afficheBoutonsModif2()
         afficheProjets(monProjets)
+        categoieOption(mesBoutons)
         let acceuil  = document.querySelector('.acceuil')
         acceuil.addEventListener('click', function(){
             localStorage.removeItem("isConnected");
@@ -165,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 elementModal.appendChild(iconImg);
     
             });
-            //suprimer_photo()
+            suprimer_photo()
         })
         fermerModal() 
         
@@ -221,5 +222,20 @@ async function suprimer_photo() {
     });
 }
 
-suprimer_photo();
+//suprimer_photo();
+
+
+function categoieOption(mesBoutons){
+    let btnOption = document.getElementById("categorie")
+    mesBoutons.forEach(optionCat => {
+        let optionc = document.createElement('option')
+        console.log(optionCat)
+        optionc.value = optionCat.name
+        optionc.innerText = optionCat.name
+        console.log(optionCat.name)
+        optionc.setAttribute('data-project-id', optionCat.id)
+
+        btnOption.appendChild(optionc)
+    })
+}
 });
