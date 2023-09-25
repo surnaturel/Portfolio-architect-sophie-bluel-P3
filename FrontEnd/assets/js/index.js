@@ -221,10 +221,13 @@ async function suprimer_photo() {
         });
     });
 }
-
+ function photoAjouter(){
+    let photoAjouter = document.querySelector('#photoAjouter')
+    photoAjouter.addEventListener('click', function(){
+        let modalWrapper = document.querySelector('.modal-wrapper')
+    })
+ }
 //suprimer_photo();
-
-
 function categoieOption(mesBoutons){
     let btnOption = document.getElementById("categorie")
     mesBoutons.forEach(optionCat => {
