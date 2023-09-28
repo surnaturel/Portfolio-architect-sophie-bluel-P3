@@ -53,6 +53,9 @@ a{
 	outline: none;
 	color: black;
 }
+i{
+	cursor: pointer;
+}
 body {
 	max-width: 1140px;
 	margin:auto;

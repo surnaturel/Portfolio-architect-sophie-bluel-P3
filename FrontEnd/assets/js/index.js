@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         afficheBoutonsModif2()
         afficheProjets(monProjets)
         categoieOption(mesBoutons)
+        photoAjouter()
         let acceuil  = document.querySelector('.acceuil')
         acceuil.addEventListener('click', function(){
             localStorage.removeItem("isConnected");
@@ -168,77 +169,136 @@ document.addEventListener("DOMContentLoaded", async function() {
             });
             suprimer_photo()
         })
-        fermerModal() 
+        fermerModal1()
+        fermerModal2()
+        //fermerModal3()
         
     }
     affichageModal()
 
-    function fermerModal(){
-        let fermerModal = document.getElementById('fermerModal')
-        fermerModal.addEventListener('click', function(){
+    function fermerModal1(){
+        let fermerModal1 = document.querySelector('.fermerModal1')
+        fermerModal1.addEventListener('click', function(){
             modale.style.display = 'none'
         })
     }
 
-async function suprimer_photo() {
-    let iconesSupprimer = document.querySelectorAll('.iconImg');
+    async function suprimer_photo() {
+        let iconesSupprimer = document.querySelectorAll('.iconImg');
 
-    iconesSupprimer.forEach((icone) => {
-        icone.addEventListener('click', async function(event) {
-            let bouton = event.target;
-            const figureParent = bouton.closest('figure');
+        iconesSupprimer.forEach((icone) => {
+            icone.addEventListener('click', async function(event) {
+                let bouton = event.target;
+                const figureParent = bouton.closest('figure');
 
-            if (figureParent) {
-                const configDelete = confirm("Êtes-vous sûr de vouloir supprimer cette photo ?"); // Demande une confirmation
-                if(configDelete){
-                    const projectId = figureParent.dataset.projectId; // Ajoutez une data attribute pour stocker l'ID du projet
-                    try {
-                        const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Authorization': `Bearer ${token}`
+                if (figureParent) {
+                    const configDelete = confirm("Êtes-vous sûr de vouloir supprimer cette photo ?"); // Demande une confirmation
+                    if(configDelete){
+                        const projectId = figureParent.dataset.projectId; // Ajoutez une data attribute pour stocker l'ID du projet
+                        try {
+                            const response = await fetch(`http://localhost:5678/api/works/${projectId}`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            });
+
+                            if (response.ok) {
+                                console.log(token)
+                                // Suppression côté serveur réussie
+                                figureParent.remove();
+                                // Vous pouvez également mettre à jour votre liste de projets en actualisant monProjets
+                                const modifResponse = await fetch('http://localhost:5678/api/works');
+                                monProjets = await modifResponse.json();
+                                let modifProjets = JSON.stringify(monProjets);
+                                window.localStorage.setItem("monProjets", modifProjets);
+                                afficheProjets(monProjets);
+                            } else {
+                                console.error('Échec de la suppression côté serveur');
                             }
-                        });
-
-                        if (response.ok) {
-                            console.log(token)
-                            // Suppression côté serveur réussie
-                            figureParent.remove();
-                            // Vous pouvez également mettre à jour votre liste de projets en actualisant monProjets
-                            const modifResponse = await fetch('http://localhost:5678/api/works');
-                            monProjets = await modifResponse.json();
-                            let modifProjets = JSON.stringify(monProjets);
-                            window.localStorage.setItem("monProjets", modifProjets);
-                            afficheProjets(monProjets);
-                        } else {
-                            console.error('Échec de la suppression côté serveur');
+                        } catch (error) {
+                            console.error('Une erreur s\'est produite lors de la suppression :', error);
                         }
-                    } catch (error) {
-                        console.error('Une erreur s\'est produite lors de la suppression :', error);
                     }
                 }
-            }
+            });
         });
-    });
-}
- function photoAjouter(){
-    let photoAjouter = document.querySelector('#photoAjouter')
-    photoAjouter.addEventListener('click', function(){
-        let modalWrapper = document.querySelector('.modal-wrapper')
-    })
- }
-//suprimer_photo();
-function categoieOption(mesBoutons){
-    let btnOption = document.getElementById("categorie")
-    mesBoutons.forEach(optionCat => {
-        let optionc = document.createElement('option')
-        console.log(optionCat)
-        optionc.value = optionCat.name
-        optionc.innerText = optionCat.name
-        console.log(optionCat.name)
-        optionc.setAttribute('data-project-id', optionCat.id)
+    }
+    function photoAjouter(){
+        let photoAjouter = document.querySelector('#photoAjouter')
+        photoAjouter.addEventListener('click', function(){
+            let modalWrapper = document.querySelector('.modal-wrapper')
+            let modalAjoutPhoto = document.querySelector('.modalAjoutPhoto')
+            modalWrapper.style.display = 'none'
+            modalAjoutPhoto.style.display = 'flex'
+        })
+    }
+    //suprimer_photo();
+    function categoieOption(mesBoutons){
+        let btnOption = document.getElementById("categorie")
+        mesBoutons.forEach(optionCat => {
+            let optionc = document.createElement('option')
+            console.log(optionCat)
+            optionc.value = optionCat.name
+            optionc.innerText = optionCat.name
+            console.log(optionCat.name)
+            optionc.setAttribute('data-project-id', optionCat.id)
 
-        btnOption.appendChild(optionc)
-    })
-}
+            btnOption.appendChild(optionc)
+        })
+    }
+    function fermerModal2(){
+        let fermerModal2 = document.querySelector('.fermerModal2')
+        fermerModal2.addEventListener('click', function(){
+            modale.style.display = 'none'
+            let modalWrapper = document.querySelector('.modal-wrapper')
+            let modalAjoutPhoto = document.querySelector('.modalAjoutPhoto')
+            modalWrapper.style.display = 'flex'
+            modalAjoutPhoto.style.display = 'none'
+        })
+    }
+    function fermerModal3(){
+        let fermerModal3 = document.querySelector('.modal')
+        fermerModal3.addEventListener('click', function(){
+            modale.style.display = 'none'
+        })
+    }
+    function newPhoto(){
+        let newPhoto = document.querySelector('.newphoto')
+        newPhoto.addEventListener('click', function(){
+            // Sélectionnez le bouton "Ajouter Photo" par son ID
+            const ajouterPhotoBtn = document.getElementById('ajouterPhotoBtn');
+
+            // Sélectionnez l'élément input de type "file"
+            const inputImage = document.getElementById('inputImage');
+
+            // Ajoutez un gestionnaire d'événements au bouton "Ajouter Photo"
+            ajouterPhotoBtn.addEventListener('click', () => {
+                // Déclenchez un clic sur l'élément input de type "file"
+                inputImage.click();
+            });
+
+            // Ajoutez un gestionnaire d'événements au changement de l'input de type "file"
+            inputImage.addEventListener('change', () => {
+                const file = inputImage.files[0];
+                console.log(file)
+                if (file) {
+                    if(file.size > 40000000){
+                        let figureNew = document.querySelector('.figureNew')
+                        let newphoto = document.querySelector('.newphoto')
+                        let caracteristiquePhoto = document.querySelector('.caracteristiquePhoto')
+                        let NewImage = document.querySelector('.NewImage')
+                    }
+
+                    // Vous pouvez maintenant traiter le fichier ici, par exemple, l'afficher ou l'envoyer vers un serveur.
+                    console.log('Fichier sélectionné :', file.name);
+                    console.log('Taille du fichier :', file.size, 'octets');
+                    console.log('Type de fichier :', file.type);
+
+                    inputImage.value = '';
+                }
+            });
+        })
+    }
+    newPhoto()
 });

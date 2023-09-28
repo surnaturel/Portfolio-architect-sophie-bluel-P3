@@ -63,7 +63,7 @@
 		</section>
 		<aside class="modal" id="modale" aria-hidden="true" role="dialog" aria-modal="false">
 			<div class="modal-common modal-wrapper">
-				<i class="fa-solid fa-xmark" id="fermerModal"></i>
+				<i class="fa-solid fa-xmark fermerModal1"></i>
 				<h1>Galerie Photo</h1>
 				<section id="galery-modal">
 					<!--affichage de tous les projets modale -->
@@ -77,15 +77,19 @@
 			<div class="modal-common modalAjoutPhoto" id="ajoutPhoto">
 				<div class="icons">
 					<i class="fa-solid fa-arrow-left" id="revenirModal"></i>
-					<i class="fa-solid fa-xmark" id="fermerModal"></i>
+					<i class="fa-solid fa-xmark fermerModal2"></i>
 				</div>
 				<h1>Galerie Photo</h1>
 				<div class="contenue-photo">
-					<figure>
+					<figure class="figureNew">
 						<img src="./assets/images/img1t.jfif" alt="image pour ajout">
 					</figure>
-					<button> + Ajouter Photo</button>
-					<p>jpg, png : 40 mo max</p>
+					<button class="newphoto" id="ajouterPhotoBtn"> + Ajouter Photo</button>
+					<p class="caracteristiquePhoto">jpg, png : 40 mo max</p>
+					<figure class="NewImage" style="display: none;">
+						<!-- afficher l'image apres importation -->
+					</figure>
+					<input type="file" id="inputImage" style="display: none;">
 				</div>
 				<form action="" id="photoImage">
 					<label for="titre">Titre</label>
@@ -119,3 +123,4 @@
 	</footer>
 </body>
 </html>
+cd b	
