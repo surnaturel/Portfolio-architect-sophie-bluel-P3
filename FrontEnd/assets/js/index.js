@@ -283,19 +283,32 @@ document.addEventListener("DOMContentLoaded", async function() {
                 const file = inputImage.files[0];
                 console.log(file)
                 if (file) {
-                    if(file.size > 40000000){
-                        let figureNew = document.querySelector('.figureNew')
-                        let newphoto = document.querySelector('.newphoto')
-                        let caracteristiquePhoto = document.querySelector('.caracteristiquePhoto')
-                        let NewImage = document.querySelector('.NewImage')
+                    if(file.size < 40000000){
+                        if(file.type == 'image/jpg' || file.type == 'image/png'){
+                            window.localStorage.setItem("cartImag", file.name);
+                            let figureNew = document.querySelector('.figureNew')
+                            let newphoto = document.querySelector('.newphoto')
+                            let caracteristiquePhoto = document.querySelector('.caracteristiquePhoto')
+                            let newImage = document.querySelector('.newImage')
+                            
+                            figureNew.style.display = 'none'
+                            newphoto.style.display = 'none'
+                            caracteristiquePhoto.style.display = 'none'
+                            newImage.style.display = 'flex'
+                            
+
+                            // Vous pouvez maintenant traiter le fichier ici, par exemple, l'afficher ou l'envoyer vers un serveur.
+                            console.log('Fichier sélectionné :', file.name);
+                            console.log('Taille du fichier :', file.size, 'octets');
+                            console.log('Type de fichier :', file.type);
+                            inputImage.value = '';
+
+                            // inserer dans le serveurer
+
+                        }
                     }
 
-                    // Vous pouvez maintenant traiter le fichier ici, par exemple, l'afficher ou l'envoyer vers un serveur.
-                    console.log('Fichier sélectionné :', file.name);
-                    console.log('Taille du fichier :', file.size, 'octets');
-                    console.log('Type de fichier :', file.type);
 
-                    inputImage.value = '';
                 }
             });
         })
