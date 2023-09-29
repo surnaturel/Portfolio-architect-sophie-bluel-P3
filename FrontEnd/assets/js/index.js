@@ -295,13 +295,52 @@ document.addEventListener("DOMContentLoaded", async function() {
                             newphoto.style.display = 'none'
                             caracteristiquePhoto.style.display = 'none'
                             newImage.style.display = 'flex'
+
+                            const form = document.getElementById('photoImage');
+                            const titreInput = document.getElementById('titre');
+                            const categorieSelect = document.getElementById('categorie');
+                            const reponse = document.querySelector('.reponse');
+
+                            form.addEventListener('submit', async (e) => {
+                                e.preventDefault();
+
+                                const formData = new FormData();
+                                formData.append('titre', titreInput.value);
+                                formData.append('categorie', categorieSelect.value);
+                                formData.append('image', file);
+
+                                try {
+                                const response = await fetch('http://localhost:5678/api/works', {
+                                    method: 'POST',
+                                    body: formData,
+                                });
+
+                                if (response.ok) {
+                                    // Réponse réussie du serveur, vous pouvez gérer la réponse ici.
+                                    const texteReponse = await response.text();
+                                    console.log(texteReponse);
+                                    reponse.textContent = texteReponse;
+
+                                    console.log('Fichier sélectionné :', file.name);
+                                    console.log('Taille du fichier :', file.size, 'octets');
+                                    console.log('Type de fichier :', file.type);
+                                    inputImage.value = '';
+                                    
+                                } else {
+                                    console.error('Erreur lors de l\'envoi du formulaire.');
+                                }
+                                } catch (error) {
+                                console.error('Une erreur s\'est produite lors de la requête.');
+                                }
+                            });
+
+                            let elementNewImage = document.createElement('img')
+
+
+                            
                             
 
                             // Vous pouvez maintenant traiter le fichier ici, par exemple, l'afficher ou l'envoyer vers un serveur.
-                            console.log('Fichier sélectionné :', file.name);
-                            console.log('Taille du fichier :', file.size, 'octets');
-                            console.log('Type de fichier :', file.type);
-                            inputImage.value = '';
 
                             // inserer dans le serveurer
 
