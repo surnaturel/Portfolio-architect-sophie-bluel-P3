@@ -353,4 +353,57 @@ document.addEventListener("DOMContentLoaded", async function() {
         })
     }
     newPhoto()
+
+    /*
+    document.querySelector("form#photoImage button").addEventListener("click", async function (e) {
+  e.preventDefault();
+
+  // Récupérez le token d'autorisation depuis le local storage
+  const token = window.localStorage.getItem("tokenLogin");
+
+  // Récupérez les valeurs du titre, de la catégorie et du fichier image
+  const titre = document.querySelector("#titre").value;
+  const categorie = document.querySelector("#categorie").value;
+  const imageFile = document.querySelector("#inputImage").files[0];
+
+  // Créez un objet FormData pour envoyer les données multipart/form-data
+  const formData = new FormData();
+  formData.append("titre", titre);
+  formData.append("categorie", categorie);
+  formData.append("image", imageFile);
+
+  try {
+    // Effectuez une requête fetch pour envoyer les données au serveur avec l'en-tête Authorization
+    const response = await fetch("/votre-endpoint-de-serveur", {
+      method: "POST",
+      body: formData,
+      headers: {
+        // Ajoutez l'en-tête d'autorisation avec le token
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      // Si la requête est réussie, mettez à jour vos données locales
+      const newResponse = await fetch('http://localhost:5678/api/works');
+      const newMonProjets = await newResponse.json();
+      const valeurProjets = JSON.stringify(newMonProjets);
+      window.localStorage.setItem("monProjets", valeurProjets);
+      console.log(newMonProjets.length);
+      console.log("Données envoyées avec succès.");
+      // Affichez une réponse à l'utilisateur
+      document.querySelector(".reponse").textContent = "Données envoyées avec succès.";
+    } else {
+      console.error("Erreur lors de l'envoi de données au serveur.");
+      // Affichez une erreur à l'utilisateur
+      document.querySelector(".reponse").textContent = "Erreur lors de l'envoi des données.";
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de données au serveur : ", error);
+    // Affichez une erreur à l'utilisateur
+    document.querySelector(".reponse").textContent = "Erreur lors de l'envoi des données.";
+  }
+});
+
+    */
 });
