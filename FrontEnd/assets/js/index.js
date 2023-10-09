@@ -4,16 +4,18 @@ document.addEventListener("DOMContentLoaded", async function() {
     const token = window.localStorage.getItem("tokenLogin")
     let monProjets = window.localStorage.getItem('monProjets');
     let mesBoutons = window.localStorage.getItem('mesBoutons');
+    let file = null;
+    let newMonProjets = []; 
     if(monProjets === null){
         let reponse = await fetch('http://localhost:5678/api/works')
         monProjets = await reponse.json()
         let valeurProjets = JSON.stringify(monProjets);
         window.localStorage.setItem("monProjets", valeurProjets);
-        console.log(monProjets.length)
+        //console.log(monProjets.length)
 
     }else{
         monProjets = JSON.parse(monProjets)
-        console.log(monProjets.length)
+        //console.log(monProjets.length)
     }
 
     if(mesBoutons === null){
@@ -169,16 +171,16 @@ document.addEventListener("DOMContentLoaded", async function() {
             });
             suprimer_photo()
         })
-        fermerModal1()
-        fermerModal2()
+        iconDeleteModal()
+        iconDeleteModalAjoutPhoto()
         //fermerModal3()
         
     }
     affichageModal()
 
-    function fermerModal1(){
-        let fermerModal1 = document.querySelector('.fermerModal1')
-        fermerModal1.addEventListener('click', function(){
+    function iconDeleteModal(){
+        let iconDeleteModal = document.querySelector('.iconDeleteModal')
+        iconDeleteModal.addEventListener('click', function(){
             modale.style.display = 'none'
         })
     }
@@ -238,18 +240,18 @@ document.addEventListener("DOMContentLoaded", async function() {
         let btnOption = document.getElementById("categorie")
         mesBoutons.forEach(optionCat => {
             let optionc = document.createElement('option')
-            console.log(optionCat)
+            //console.log(optionCat)
             optionc.value = optionCat.name
             optionc.innerText = optionCat.name
-            console.log(optionCat.name)
+            //console.log(optionCat.name)
             optionc.setAttribute('data-project-id', optionCat.id)
 
             btnOption.appendChild(optionc)
         })
     }
-    function fermerModal2(){
-        let fermerModal2 = document.querySelector('.fermerModal2')
-        fermerModal2.addEventListener('click', function(){
+    function iconDeleteModalAjoutPhoto(){
+        let iconDeleteModalAjoutPhoto = document.querySelector('.iconDeleteModalAjoutPhoto')
+        iconDeleteModalAjoutPhoto.addEventListener('click', function(){
             modale.style.display = 'none'
             let modalWrapper = document.querySelector('.modal-wrapper')
             let modalAjoutPhoto = document.querySelector('.modalAjoutPhoto')
@@ -263,147 +265,132 @@ document.addEventListener("DOMContentLoaded", async function() {
             modale.style.display = 'none'
         })
     }
-    function newPhoto(){
-        let newPhoto = document.querySelector('.newphoto')
-        newPhoto.addEventListener('click', function(){
-            // Sélectionnez le bouton "Ajouter Photo" par son ID
-            const ajouterPhotoBtn = document.getElementById('ajouterPhotoBtn');
+    function newPhoto() {
+        // Sélectionnez le bouton "Ajouter Photo"
+        const ajouterPhotoBtn = document.getElementById('ajouterPhotoBtn');
+        // Sélectionnez l'élément qui contiendra la nouvelle image
+        const newImageContainer = document.querySelector('.newImage');
+        // Sélectionnez l'élément input de type "file"
+        const inputImage = document.getElementById('inputImage');
+        // selectionez l'element figure 'figureNew'
+        const figureNew = document.querySelector('.figureNew')
 
-            // Sélectionnez l'élément input de type "file"
-            const inputImage = document.getElementById('inputImage');
+        // Ajoutez un gestionnaire d'événements au bouton "Ajouter Photo"
+        ajouterPhotoBtn.addEventListener('click', () => {
+            // Déclenchez un clic sur l'élément input de type "file"
+            inputImage.click();
+        });
 
-            // Ajoutez un gestionnaire d'événements au bouton "Ajouter Photo"
-            ajouterPhotoBtn.addEventListener('click', () => {
-                // Déclenchez un clic sur l'élément input de type "file"
-                inputImage.click();
-            });
+        // Ajoutez un gestionnaire d'événements au changement de l'input de type "file"
+        inputImage.addEventListener('change', () => {
+            file = inputImage.files[0];
+            
+            if (file) {
+                if (file.size < 40000000 && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+                    // Cacher les éléments inutiles et afficher la nouvelle image
+                    ajouterPhotoBtn.style.display = 'none';
+                    figureNew.style.display = 'none';
+                    document.querySelector('.caracteristiquePhoto').style.display = 'none';
+                    newImageContainer.style.display = 'block';
+                    
+                    // Créer un élément img pour afficher la nouvelle image
+                    const newImage = document.createElement('img');
+                    newImage.src = URL.createObjectURL(file);
+                    newImageContainer.appendChild(newImage);
 
-            // Ajoutez un gestionnaire d'événements au changement de l'input de type "file"
-            inputImage.addEventListener('change', () => {
-                const file = inputImage.files[0];
-                console.log(file)
-                if (file) {
-                    if(file.size < 40000000){
-                        if(file.type == 'image/jpg' || file.type == 'image/png'){
-                            window.localStorage.setItem("cartImag", file.name);
-                            let figureNew = document.querySelector('.figureNew')
-                            let newphoto = document.querySelector('.newphoto')
-                            let caracteristiquePhoto = document.querySelector('.caracteristiquePhoto')
-                            let newImage = document.querySelector('.newImage')
-                            
-                            figureNew.style.display = 'none'
-                            newphoto.style.display = 'none'
-                            caracteristiquePhoto.style.display = 'none'
-                            newImage.style.display = 'flex'
-
-                            const form = document.getElementById('photoImage');
-                            const titreInput = document.getElementById('titre');
-                            const categorieSelect = document.getElementById('categorie');
-                            const reponse = document.querySelector('.reponse');
-
-                            form.addEventListener('submit', async (e) => {
-                                e.preventDefault();
-
-                                const formData = new FormData();
-                                formData.append('titre', titreInput.value);
-                                formData.append('categorie', categorieSelect.value);
-                                formData.append('image', file);
-
-                                try {
-                                const response = await fetch('http://localhost:5678/api/works', {
-                                    method: 'POST',
-                                    body: formData,
-                                });
-
-                                if (response.ok) {
-                                    // Réponse réussie du serveur, vous pouvez gérer la réponse ici.
-                                    const texteReponse = await response.text();
-                                    console.log(texteReponse);
-                                    reponse.textContent = texteReponse;
-
-                                    console.log('Fichier sélectionné :', file.name);
-                                    console.log('Taille du fichier :', file.size, 'octets');
-                                    console.log('Type de fichier :', file.type);
-                                    inputImage.value = '';
-                                    
-                                } else {
-                                    console.error('Erreur lors de l\'envoi du formulaire.');
-                                }
-                                } catch (error) {
-                                console.error('Une erreur s\'est produite lors de la requête.');
-                                }
-                            });
-
-                            let elementNewImage = document.createElement('img')
-
-
-                            
-                            
-
-                            // Vous pouvez maintenant traiter le fichier ici, par exemple, l'afficher ou l'envoyer vers un serveur.
-
-                            // inserer dans le serveurer
-
-                        }
-                    }
-
-
+                    
                 }
-            });
-        })
+                updateSubmitButtonState();
+            }
+        });
     }
-    newPhoto()
 
-    /*
-    document.querySelector("form#photoImage button").addEventListener("click", async function (e) {
-  e.preventDefault();
+    // Appeler la fonction pour activer la gestion de l'ajout de photo
+    newPhoto();
 
-  // Récupérez le token d'autorisation depuis le local storage
-  const token = window.localStorage.getItem("tokenLogin");
-
-  // Récupérez les valeurs du titre, de la catégorie et du fichier image
-  const titre = document.querySelector("#titre").value;
-  const categorie = document.querySelector("#categorie").value;
-  const imageFile = document.querySelector("#inputImage").files[0];
-
-  // Créez un objet FormData pour envoyer les données multipart/form-data
-  const formData = new FormData();
-  formData.append("titre", titre);
-  formData.append("categorie", categorie);
-  formData.append("image", imageFile);
-
-  try {
-    // Effectuez une requête fetch pour envoyer les données au serveur avec l'en-tête Authorization
-    const response = await fetch("/votre-endpoint-de-serveur", {
-      method: "POST",
-      body: formData,
-      headers: {
-        // Ajoutez l'en-tête d'autorisation avec le token
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-
-    if (response.ok) {
-      // Si la requête est réussie, mettez à jour vos données locales
-      const newResponse = await fetch('http://localhost:5678/api/works');
-      const newMonProjets = await newResponse.json();
-      const valeurProjets = JSON.stringify(newMonProjets);
-      window.localStorage.setItem("monProjets", valeurProjets);
-      console.log(newMonProjets.length);
-      console.log("Données envoyées avec succès.");
-      // Affichez une réponse à l'utilisateur
-      document.querySelector(".reponse").textContent = "Données envoyées avec succès.";
-    } else {
-      console.error("Erreur lors de l'envoi de données au serveur.");
-      // Affichez une erreur à l'utilisateur
-      document.querySelector(".reponse").textContent = "Erreur lors de l'envoi des données.";
+    function updateSubmitButtonState() {
+        const titreInput = document.getElementById('titre');
+        const categorieSelect = document.getElementById('categorie');
+        const validerButton = document.querySelector('.btnValidation');
+        const newImageContainer = document.querySelector('.newImage');
+        console.log('updateSubmitButtonState() appelée')
+        // Vérifiez si les champs titre et categorie sont remplis
+        const titreValide = titreInput.value.trim() !== '';
+        const categorieValide = categorieSelect.value.trim() !== '';
+    
+        // Vérifiez si une image a été ajoutée
+        const imageAjoutee = newImageContainer.querySelector('img') !== null;
+    
+        // Activez ou désactivez le bouton Valider en fonction de l'état des champs et de la présence de l'image
+        validerButton.disabled = !(titreValide && categorieValide && imageAjoutee);
+        console.log('Titre :', titreInput.value);
+        console.log('Categorie :', categorieSelect.value);
+        console.log('Bouton Valider désactivé :', validerButton.disabled);
+        if (titreValide && categorieValide && imageAjoutee) {
+            validerButton.style.backgroundColor = 'blue';
+        } else {
+            // Sinon, définissez la couleur de fond sur sa valeur par défaut
+            validerButton.style.backgroundColor = '#A7A7A7'; // Vous pouvez utiliser une autre couleur par défaut si vous le souhaitez
+        }
     }
-  } catch (error) {
-    console.error("Erreur lors de l'envoi de données au serveur : ", error);
-    // Affichez une erreur à l'utilisateur
-    document.querySelector(".reponse").textContent = "Erreur lors de l'envoi des données.";
-  }
-});
+    
+    function sendPhoto(){
+        const form = document.getElementById('photoImage');
+        document.getElementById('titre').addEventListener('input', updateSubmitButtonState);
+        document.getElementById('categorie').addEventListener('change', updateSubmitButtonState);
+        updateSubmitButtonState()
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    */
+            // Récupérez le token d'autorisation depuis le local storage
+            const token = window.localStorage.getItem("tokenLogin");
+            const titreInput = document.getElementById('titre');
+            const categorieSelect = document.getElementById('categorie');
+            console.log(categorieSelect)
+            const laReponse = document.querySelector('.reponse');
+
+            const formData = new FormData();
+            formData.append('titre', titreInput.value);
+            formData.append('categorie', categorieSelect.value);
+            formData.append('image', file);
+           
+            try {
+                const response = await fetch('http://localhost:5678/api/works', {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                    // Ajoutez l'en-tête d'autorisation avec le token
+                    "Authorization": `Bearer ${token}`,
+                    },
+                });
+
+                if (response.ok) {
+                    // Réponse réussie du serveur, vous pouvez gérer la réponse ici.
+                    const newResponse = await fetch('http://localhost:5678/api/works');
+                    const newMonProjets = await newResponse.json();
+                    const valeurProjets = JSON.stringify(newMonProjets);
+                    window.localStorage.setItem("monProjets", valeurProjets);
+                    console.log(newMonProjets.length);
+                    console.log("Données envoyées avec succès.");
+                    // Affichez une réponse à l'utilisateur
+                    laReponse.textContent = "Données envoyées avec succès.";
+                    inputImage.value = '';
+                    /*console.log('Fichier sélectionné :', file.name);
+                    console.log('Taille du fichier :', file.size, 'octets');
+                    console.log('Type de fichier :', file.type);*/
+                    
+                    
+                } else {
+                    console.error("Erreur lors de l'envoi de données au serveur.");
+                    // Affichez une erreur à l'utilisateur
+                    document.querySelector(".reponse").textContent = "Erreur lors de l'envoi des données.";
+                }
+            } catch (error) {
+              console.error("Erreur lors de l'envoi de données au serveur : ", error);
+              // Affichez une erreur à l'utilisateur
+              document.querySelector(".reponse").textContent = "Erreur lors de l'envoi des données.";
+            }
+        });
+    }
+    sendPhoto()
 });

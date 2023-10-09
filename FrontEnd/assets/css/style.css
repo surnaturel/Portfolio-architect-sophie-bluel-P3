@@ -328,6 +328,17 @@ footer nav ul {
 .modalAjoutPhoto .contenue-photo figure img{
 	width: 50%;
 }
+.modalAjoutPhoto .contenue-photo .newImage{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.modalAjoutPhoto .contenue-photo .newImage img{
+	width: 35%;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
 .modalAjoutPhoto .contenue-photo button{
 	font-family: Work Sans;
 	font-size: 14px;
@@ -403,7 +414,6 @@ footer nav ul {
 	background-color: #B3B3B3	; /* Couleur de la ligne */
   }
 #galery-modal  .elementModal{
-	border: 2px solid red;
 	position: relative;
 }
 #galery-modal img{
