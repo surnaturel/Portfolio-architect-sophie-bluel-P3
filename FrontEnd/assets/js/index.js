@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         console.log('Categorie :', categorieSelect.value);
         console.log('Bouton Valider désactivé :', validerButton.disabled);
         if (titreValide && categorieValide && imageAjoutee) {
-            validerButton.style.backgroundColor = 'blue';
+            validerButton.style.backgroundColor = '#1D6154';
         } else {
             // Sinon, définissez la couleur de fond sur sa valeur par défaut
             validerButton.style.backgroundColor = '#A7A7A7'; // Vous pouvez utiliser une autre couleur par défaut si vous le souhaitez
