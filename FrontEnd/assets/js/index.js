@@ -298,9 +298,9 @@ document.addEventListener("DOMContentLoaded", async function() {
                     newImage.src = URL.createObjectURL(file);
                     newImageContainer.appendChild(newImage);
 
-                    
+                    updateSubmitButtonState();
                 }
-                updateSubmitButtonState();
+               
             }
         });
     }
@@ -353,7 +353,6 @@ document.addEventListener("DOMContentLoaded", async function() {
             formData.append('titre', titreInput.value);
             formData.append('categorie', categorieSelect.value);
             formData.append('image', file);
-           
             try {
                 const response = await fetch('http://localhost:5678/api/works', {
                     method: "POST",
@@ -370,7 +369,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     const newMonProjets = await newResponse.json();
                     const valeurProjets = JSON.stringify(newMonProjets);
                     window.localStorage.setItem("monProjets", valeurProjets);
-                    console.log(newMonProjets.length);
+                    console.log('le new projet ' + newMonProjets.length);
                     console.log("Données envoyées avec succès.");
                     // Affichez une réponse à l'utilisateur
                     laReponse.textContent = "Données envoyées avec succès.";
