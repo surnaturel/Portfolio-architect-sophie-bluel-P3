@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         monProjets = await reponse.json()
         let valeurProjets = JSON.stringify(monProjets);
         window.localStorage.setItem("monProjets", valeurProjets);
-        //console.log(monProjets.length)
+        //console.log(valeurProjets)
 
     }else{
         monProjets = JSON.parse(monProjets)
@@ -58,10 +58,12 @@ document.addEventListener("DOMContentLoaded", async function() {
             gallery.appendChild(elementProjet)
             elementProjet.appendChild(elementImage)
             elementProjet.appendChild(elementTitre)
+            //console.log('les projes' + projet.imageUrl)
 
         });
 
         console.log('le nombre apres la supression ' + monProjets.length)
+        
 
     }
     afficheProjets(monProjets)
@@ -241,10 +243,9 @@ document.addEventListener("DOMContentLoaded", async function() {
         mesBoutons.forEach(optionCat => {
             let optionc = document.createElement('option')
             //console.log(optionCat)
-            optionc.value = optionCat.name
+            optionc.value = optionCat.id
             optionc.innerText = optionCat.name
             //console.log(optionCat.name)
-            optionc.setAttribute('data-project-id', optionCat.id)
 
             btnOption.appendChild(optionc)
         })
@@ -336,23 +337,21 @@ document.addEventListener("DOMContentLoaded", async function() {
     
     function sendPhoto(){
         const form = document.getElementById('photoImage');
-        document.getElementById('titre').addEventListener('input', updateSubmitButtonState);
-        document.getElementById('categorie').addEventListener('change', updateSubmitButtonState);
+        const titreInput = document.getElementById('titre');
+        const categorieSelect = document.getElementById('categorie');
+        titreInput.addEventListener('input', updateSubmitButtonState);
+        categorieSelect.addEventListener('change', updateSubmitButtonState);
         updateSubmitButtonState()
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             // Récupérez le token d'autorisation depuis le local storage
             const token = window.localStorage.getItem("tokenLogin");
-            const titreInput = document.getElementById('titre');
-            const categorieSelect = document.getElementById('categorie');
-            console.log(categorieSelect)
             const laReponse = document.querySelector('.reponse');
-
             const formData = new FormData();
-            formData.append('titre', titreInput.value);
-            formData.append('categorie', categorieSelect.value);
-            formData.append('image', file);
+            formData.append('title', titreInput.value);
+            formData.append('categoryId', categorieSelect.value);
+            formData.append('imageUrl', file);
             try {
                 const response = await fetch('http://localhost:5678/api/works', {
                     method: "POST",
@@ -362,13 +361,15 @@ document.addEventListener("DOMContentLoaded", async function() {
                     "Authorization": `Bearer ${token}`,
                     },
                 });
-
+                console.log('Bonjour et edou')
+                console.log(response.status)
                 if (response.ok) {
                     // Réponse réussie du serveur, vous pouvez gérer la réponse ici.
                     const newResponse = await fetch('http://localhost:5678/api/works');
                     const newMonProjets = await newResponse.json();
                     const valeurProjets = JSON.stringify(newMonProjets);
                     window.localStorage.setItem("monProjets", valeurProjets);
+                    afficheProjets(monProjets)
                     console.log('le new projet ' + newMonProjets.length);
                     console.log("Données envoyées avec succès.");
                     // Affichez une réponse à l'utilisateur
