@@ -191,11 +191,17 @@ nav li a:hover{
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	
 }
-
+.gallery figure{
+	width: 100%;
+	height: 55vh;
+}
 .gallery img {
 	width: 100%;
-
+	height: 100%;
+}
+.gallery p{
 }
 #contact {
 	width: 50%;
@@ -332,9 +338,11 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 12vh;
 }
 .modalAjoutPhoto .contenue-photo .newImage img{
-	width: 35%;
+	width: 100%;
+	height: 100%;
 	position: relative;
 	left: 50%;
 	transform: translateX(-50%);
@@ -415,9 +423,13 @@ footer nav ul {
   }
 #galery-modal  .elementModal{
 	position: relative;
+	margin-bottom: 12px;
+	width: 100%;
+	height: 10vh;
 }
 #galery-modal img{
-	width: 100%;
+	width: 99%;
+	height: 100%;
 }
 #galery-modal a{
 	color: #000000;

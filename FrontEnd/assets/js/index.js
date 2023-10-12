@@ -2,15 +2,12 @@
 document.addEventListener("DOMContentLoaded", async function() {
     const isConnected = window.localStorage.getItem("isConnected");
     const token = window.localStorage.getItem("tokenLogin")
-    let monProjets = window.localStorage.getItem('monProjets');
-    let mesBoutons = window.localStorage.getItem('mesBoutons');
+    let monProjets = null
+    let mesBoutons = null
     let file = null;
-    let newMonProjets = []; 
     if(monProjets === null){
         let reponse = await fetch('http://localhost:5678/api/works')
         monProjets = await reponse.json()
-        let valeurProjets = JSON.stringify(monProjets);
-        window.localStorage.setItem("monProjets", valeurProjets);
         //console.log(valeurProjets)
 
     }else{
@@ -21,9 +18,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     if(mesBoutons === null){
         let reponseBtn = await fetch('http://localhost:5678/api/categories')
         mesBoutons = await reponseBtn.json()
-        let valeurButons = JSON.stringify(mesBoutons);
-        window.localStorage.setItem("mesBoutons", valeurButons);
-
     }else{
         mesBoutons = JSON.parse(mesBoutons)
     }
@@ -350,8 +344,8 @@ document.addEventListener("DOMContentLoaded", async function() {
             const laReponse = document.querySelector('.reponse');
             const formData = new FormData();
             formData.append('title', titreInput.value);
-            formData.append('categoryId', categorieSelect.value);
-            formData.append('imageUrl', file);
+            formData.append('category', categorieSelect.value);
+            formData.append('image', file);
             try {
                 const response = await fetch('http://localhost:5678/api/works', {
                     method: "POST",
@@ -367,9 +361,8 @@ document.addEventListener("DOMContentLoaded", async function() {
                     // Réponse réussie du serveur, vous pouvez gérer la réponse ici.
                     const newResponse = await fetch('http://localhost:5678/api/works');
                     const newMonProjets = await newResponse.json();
-                    const valeurProjets = JSON.stringify(newMonProjets);
-                    window.localStorage.setItem("monProjets", valeurProjets);
-                    afficheProjets(monProjets)
+
+                    afficheProjets(newMonProjets)
                     console.log('le new projet ' + newMonProjets.length);
                     console.log("Données envoyées avec succès.");
                     // Affichez une réponse à l'utilisateur
